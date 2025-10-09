@@ -1,4 +1,4 @@
-// signup is getting rendering on navbar
+// signup is getting rendering on navbar component
 
 import React from 'react'
 import Modal from '@mui/material/Modal';
@@ -23,9 +23,12 @@ const Signup = ({ open, setOpen }) => {
         borderRadius: 2,
     };
 
-    return (
 
-        <Modal
+    return (
+        
+
+           
+           <Modal
             open={open}
             onClose={handleClose}
             aria-labelledby="modal-modal-title"
@@ -43,29 +46,29 @@ const Signup = ({ open, setOpen }) => {
                     <label htmlFor="name" className='font-primary font-semibold'>Name</label>
 
                     <div className='flex items-center bg-gray-200 px-3 py-3 rounded-sm gap-3'>
-                        <CiUser />
+                    <CiUser />
 
                         <input type="text" className=' font-primary bg-gray-200 outline-none  rounded-sm w-full' id='name' placeholder='John Doe' />
                     </div>
 
                     <label htmlFor="email" className='  font-primary font-semibold'>Email</label>
                     <div className='flex items-center bg-gray-200 px-3 py-3 rounded-sm gap-3'>
-                        <MdOutlineMail className=' '/>
-
+                    <MdOutlineMail className=' ' />
+                    
                     <input type="email" placeholder='example@gmail.com' className='font-primary bg-gray-200 outline-none  rounded-sm w-full' id='email' />
                     </div>
                     <label htmlFor="password" className='font-primary font-semibold'>Password</label>
                     <div className='flex items-center bg-gray-200 px-3 py-3 rounded-sm gap-3'>
-                        <TbLockPassword className=''/>
-
+                    <TbLockPassword className='' />
+                    
                     <input type="password" placeholder='********' className='font-primary   bg-gray-200 outline-none  rounded-sm w-full' id='password' />
                     </div>
                     <button className='bg-teal-300 w-full py-2 rounded-md px-1 cursor-pointer hover:bg-teal-400 mt-5 font-primary font-semibold'>signup</button>
                     <span className='text-center'>or</span>
-                    <p className='text-center'>Don't have an account?<span className='text-blue-500 underline cursor-pointer' onClick={() => setModalBoolean(true)}>login</span></p>
-                </div>
-            </Box>
-        </Modal>
+                    <p className='text-center'>Don't have an account?<span className='text-blue-500 underline cursor-pointer' >login</span></p>
+                    </div>
+                    </Box>
+                    </Modal>
     )
 }
 

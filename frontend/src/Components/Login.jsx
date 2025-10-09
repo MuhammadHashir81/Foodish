@@ -1,4 +1,4 @@
-// login is getting rendering on navbar
+// login is getting rendering on navbar component
 import { useState } from 'react'
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
@@ -24,6 +24,7 @@ const Login = ({ loginOpen, setLoginOpen }) => {
 
 
     return (
+
         <Modal
             open={loginOpen}
             onClose={handleLoginClose}
@@ -53,7 +54,7 @@ const Login = ({ loginOpen, setLoginOpen }) => {
                     </div>
                     <button className='bg-teal-300 w-full py-2 rounded-md px-1 cursor-pointer hover:bg-teal-400 mt-5 font-primary font-semibold'>login</button>
                     <span className='text-center'>or</span>
-                    <p className='text-center'>Don't have an account?<span onClick={() => setModalBoolean(false)} className='text-blue-500 underline cursor-pointer'>signup</span></p>
+                    <p className='text-center'>Don't have an account?<span  className='text-blue-500 underline cursor-pointer'>signup</span></p>
                 </div>
             </Box>
         </Modal>

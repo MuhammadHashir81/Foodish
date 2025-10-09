@@ -1,0 +1,168 @@
+[
+  {
+    "id": 1,
+    "description": "Classic Margherita pizza with fresh mozzarella, basil, and tomato sauce.",
+    "category": "Pizza",
+    "image": "https://images.unsplash.com/photo-1601924582971-d92cc9b19a30",
+    "price": 10.99,
+    "rating": 4.5
+  },
+  {
+    "id": 2,
+    "description": "Juicy beef burger with cheddar cheese, lettuce, tomato, and house sauce.",
+    "category": "Burger",
+    "image": "https://images.unsplash.com/photo-1550547660-d9450f859349",
+    "price": 8.49,
+    "rating": 4.5
+    
+  },
+  {
+    "id": 3,
+    "description": "Grilled chicken sandwich with spicy mayo and crispy lettuce.",
+    "category": "Sandwich",
+    "image": "https://images.unsplash.com/photo-1606756790138-2613c1438a9e",
+    "price": 7.99,
+    "rating": 4.5
+
+  },
+  {
+    "id": 4,
+    "description": "Spaghetti pasta tossed in creamy Alfredo sauce and parmesan cheese.",
+    "category": "Pasta",
+    "image": "https://images.unsplash.com/photo-1589308078055-318d0b1f42d1",
+    "price": 12.49,
+    "rating": 4.5
+
+  },
+  {
+    "id": 5,
+    "description": "Fresh Caesar salad with crunchy croutons and parmesan shavings.",
+    "category": "Salad",
+    "image": "https://images.unsplash.com/photo-1568605114967-8130f3a36994",
+    "price": 6.99,
+    "rating": 4.5
+  },
+  {
+    "id": 6,
+    "description": "Crispy fried chicken wings coated with spicy buffalo sauce.",
+    "category": "Chicken",
+    "image": "https://images.unsplash.com/photo-1606755962773-0e3f76c17d9b",
+    "price": 9.99,
+    "rating": 4.5
+
+  },
+  {
+    "id": 7,
+    "description": "Tender grilled salmon served with lemon butter sauce.",
+    "category": "Seafood",
+    "image": "https://images.unsplash.com/photo-1617196036907-96a9e6b6c4d2",
+    "price": 14.99,
+    "rating": 4.5
+
+  },
+  {
+    "id": 8,
+    "description": "Soft tacos filled with seasoned beef, cheese, and fresh veggies.",
+    "category": "Mexican",
+    "image": "https://images.unsplash.com/photo-1617196036907-96a9e6b6c4d2",
+    "price": 8.99,
+    "rating": 4.5
+
+  },
+  {
+    "id": 9,
+    "description": "Creamy mushroom risotto with herbs and parmesan cheese.",
+    "category": "Rice Dish",
+    "image": "https://images.unsplash.com/photo-1504674900247-0877df9cc836",
+    "price": 11.49,
+    "rating": 4.5
+  },
+  {
+    "id": 10,
+    "description": "BBQ ribs glazed with smoky barbecue sauce and served with fries.",
+    "category": "Grill",
+    "image": "https://images.unsplash.com/photo-1613145993481-0945caa1b5a6",
+    "price": 15.99,
+    "rating": 4.5
+  },
+  {
+    "id": 11,
+    "description": "Vegetable stir-fry with noodles and soy sauce glaze.",
+    "category": "Asian",
+    "image": "https://images.unsplash.com/photo-1598866594230-a7e5e7bf9b96",
+    "price": 9.49,
+    "rating": 4.5
+  },
+  {
+    "id": 12,
+    "description": "Cheesy pepperoni pizza with a crispy crust and tangy tomato sauce.",
+    "category": "Pizza",
+    "image": "https://images.unsplash.com/photo-1601924582971-d92cc9b19a30",
+    "price": 11.49,
+    "rating": 4.5
+  },
+  {
+    "id": 13,
+    "description": "Crispy fries topped with cheese sauce and chili flakes.",
+    "category": "Snacks",
+    "image": "https://images.unsplash.com/photo-1550547660-d9450f859349",
+    "price": 4.99,
+    "rating": 4.5
+  },
+  {
+    "id": 14,
+    "description": "Creamy cold coffee blended with ice and chocolate drizzle.",
+    "category": "Beverage",
+    "image": "https://images.unsplash.com/photo-1509042239860-f550ce710b93",
+    "price": 3.99,
+    "rating": 4.5
+  },
+  {
+    "id": 15,
+    "description": "Freshly baked chocolate lava cake with molten center.",
+    "category": "Dessert",
+    "image": "https://images.unsplash.com/photo-1603022201800-3e0b64b0b88d",
+    "price": 5.49,
+    "rating": 4.5
+  },
+  {
+    "id": 16,
+    "description": "Grilled paneer tikka marinated in spicy Indian masala.",
+    "category": "Indian",
+    "image": "https://images.unsplash.com/photo-1600628422018-2d5a6b4a20b5",
+    "price": 9.99,
+    "rating": 4.5
+  },
+  {
+    "id": 17,
+    "description": "Butter chicken served with garlic naan and basmati rice.",
+    "category": "Indian",
+    "image": "https://images.unsplash.com/photo-1604908177879-3c42e38d5f4b",
+    "price": 13.99,
+    "rating": 4.5
+  },
+  {
+    "id": 18,
+    "description": "Crispy onion rings served with tangy garlic mayo dip.",
+    "category": "Snacks",
+    "image": "https://images.unsplash.com/photo-1571091718767-18b5b1457add",
+    "price": 5.99,
+    "rating": 4.5
+  },
+  {
+    "id": 19,
+    "description": "Iced lemonade made with freshly squeezed lemons and mint.",
+    "category": "Beverage",
+    "image": "https://images.unsplash.com/photo-1509042239860-f550ce710b93",
+    "price": 2.99,
+    "rating": 4.5
+  },
+  {
+    "id": 20,
+    "description": "Hot chocolate topped with whipped cream and cocoa dust.",
+    "category": "Beverage",
+    "image": "https://images.unsplash.com/photo-1572292598535-6f55e88632e2",
+    "price": 3.49,
+    "rating": 4.5
+  }
+]
