@@ -29,7 +29,7 @@ const cartItemsSlice = createSlice({
       state.push(action.payload);
     },
     removeItem: (state, action) => {
-       state.filter((item) => item.id !== action.payload);
+      state.filter((item) => item.id !== action.payload);
     },
     clearCart: () => {
       return [];
@@ -37,26 +37,29 @@ const cartItemsSlice = createSlice({
   },
 });
 
-const singleItemQuantitySlice = createSlice({
-    name:'quantity',
-    initialState:{
-        productQuantity:0
-    },
-    reducers:{
-        singleItemIncrement :(state,action)=>{
-            state.productQuantity +=1 
-        },
 
-        singleItemDecrement :(state,action)=>{
-            state.productQuantity -=1 
-        },
-    }
+// single quantity slice 
+
+const singleItemQuantitySlice = createSlice({
+  name: 'quantity',
+  initialState: {
+    productQuantity: 0
+  },
+  reducers: {
+    singleItemIncrement: (state, action) => {
+      state.productQuantity += 1
+    },
+
+    singleItemDecrement: (state, action) => {
+      state.productQuantity -= 1
+    },
+  }
 
 })
 
 export const { increment, decrement, reset } = cartSlice.actions;
 export const { addItem, removeItem, clearCart } = cartItemsSlice.actions;
-export const { singleItemIncrement,singleItemDecrement }  = singleItemQuantitySlice.actions
+export const { singleItemIncrement, singleItemDecrement } = singleItemQuantitySlice.actions
 
 export const cartReducer = cartSlice.reducer;
 export const cartItemsReducer = cartItemsSlice.reducer;

@@ -7,8 +7,22 @@ import { RxCrossCircled } from "react-icons/rx";
 import { CiUser } from "react-icons/ci";
 import { TbLockPassword } from "react-icons/tb";
 import { MdOutlineMail } from "react-icons/md";
+import { useDispatch } from "react-redux";
+import { signUpUser } from './slices/authSlice';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 const Signup = ({ open, setOpen }) => {
+    
+    const dispatch = useDispatch()
+    const {error} = useSelector((state)=> state.user)
+    console.log(error)
+    
+    const [signUpCredentials,setSignUpCredentials] = useState({
+        name:'',
+        email:'',
+        password:''
+    })
 
     const handleClose = () => setOpen(false);
     const style = {
@@ -22,6 +36,27 @@ const Signup = ({ open, setOpen }) => {
         p: 4,
         borderRadius: 2,
     };
+    
+    
+    // handle value change 
+    const handleValueChange = (e)=>{
+        const {name,value} = e.target
+        setSignUpCredentials((prev)=>({
+            ...prev,
+            [name]:value
+        }))
+
+      
+    }
+
+
+    // handle submit 
+
+    const handleSubmit = (e)=>{
+        e.preventDefault()
+        dispatch(signUpUser(signUpCredentials))
+
+    }
 
 
     return (
@@ -41,32 +76,54 @@ const Signup = ({ open, setOpen }) => {
                     <RxCrossCircled size={30} onClick={handleClose} className='cursor-pointer' />
 
                 </div>
-                <div className='flex flex-col gap-2 mt-5'>
+                <form onSubmit={handleSubmit} className='flex flex-col gap-2 mt-5'>
 
                     <label htmlFor="name" className='font-primary font-semibold'>Name</label>
 
                     <div className='flex items-center bg-gray-200 px-3 py-3 rounded-sm gap-3'>
                     <CiUser />
 
-                        <input type="text" className=' font-primary bg-gray-200 outline-none  rounded-sm w-full' id='name' placeholder='John Doe' />
+                        <input
+                         type="text"
+                        className=' font-primary bg-gray-200 outline-none  rounded-sm w-full' id='name' 
+                        placeholder='John Doe' 
+                        value={signUpCredentials.name}
+                        onChange={handleValueChange}
+                        name='name'
+                        />
                     </div>
 
                     <label htmlFor="email" className='  font-primary font-semibold'>Email</label>
                     <div className='flex items-center bg-gray-200 px-3 py-3 rounded-sm gap-3'>
                     <MdOutlineMail className=' ' />
                     
-                    <input type="email" placeholder='example@gmail.com' className='font-primary bg-gray-200 outline-none  rounded-sm w-full' id='email' />
+                    <input 
+                    type="email"
+                    placeholder='example@gmail.com' 
+                    className='font-primary bg-gray-200 outline-none  rounded-sm w-full' id='email'
+                    value={signUpCredentials.email}
+                    onChange={handleValueChange}
+                    name='email'
+                     />
+                    
                     </div>
                     <label htmlFor="password" className='font-primary font-semibold'>Password</label>
                     <div className='flex items-center bg-gray-200 px-3 py-3 rounded-sm gap-3'>
                     <TbLockPassword className='' />
                     
-                    <input type="password" placeholder='********' className='font-primary   bg-gray-200 outline-none  rounded-sm w-full' id='password' />
+                    <input
+                    type="password" 
+                    placeholder='********'
+                    className='font-primary   bg-gray-200 outline-none  rounded-sm w-full' id='password'
+                    value={signUpCredentials.password}
+                    onChange={handleValueChange}
+                    name='password'
+                     />
                     </div>
                     <button className='bg-teal-300 w-full py-2 rounded-md px-1 cursor-pointer hover:bg-teal-400 mt-5 font-primary font-semibold'>signup</button>
                     <span className='text-center'>or</span>
                     <p className='text-center'>Don't have an account?<span className='text-blue-500 underline cursor-pointer' >login</span></p>
-                    </div>
+                    </form>
                     </Box>
                     </Modal>
     )
