@@ -11,17 +11,19 @@ import { useDispatch } from "react-redux";
 import { signUpUser } from './slices/authSlice';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { Toaster } from 'react-hot-toast';
+import { ProgressSpinner } from 'primereact/progressspinner';
+
 
 const Signup = ({ open, setOpen }) => {
-    
+
     const dispatch = useDispatch()
-    const {error} = useSelector((state)=> state.user)
-    console.log(error)
-    
-    const [signUpCredentials,setSignUpCredentials] = useState({
-        name:'',
-        email:'',
-        password:''
+    const {  isLoading } = useSelector((state) => state.user)
+
+    const [signUpCredentials, setSignUpCredentials] = useState({
+        name: '',
+        email: '',
+        password: ''
     })
 
     const handleClose = () => setOpen(false);
@@ -36,96 +38,116 @@ const Signup = ({ open, setOpen }) => {
         p: 4,
         borderRadius: 2,
     };
-    
-    
-    // handle value change 
-    const handleValueChange = (e)=>{
-        const {name,value} = e.target
-        setSignUpCredentials((prev)=>({
-            ...prev,
-            [name]:value
-        }))
 
-      
+
+    // handle value change 
+    const handleValueChange = (e) => {
+        const { name, value } = e.target
+        setSignUpCredentials((prev) => ({
+            ...prev,
+            [name]: value
+        }))
     }
 
 
     // handle submit 
 
-    const handleSubmit = (e)=>{
+    const handleSubmit = (e) => {
         e.preventDefault()
         dispatch(signUpUser(signUpCredentials))
+        setSignUpCredentials({
+            name: '',
+            email: '',
+            password: ''
+        })
 
     }
 
 
     return (
-        
 
-           
-           <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-        >
-            <Box sx={style} className=''>
-                <div className='flex  '>
+        <>
+            <Toaster />
 
-                    <h3 className='text-4xl  flex-1 font-bold font-gray-800 text-center font-primary'>Signup</h3>
-                    <RxCrossCircled size={30} onClick={handleClose} className='cursor-pointer' />
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={style} className=''>
+                    <div className='flex  '>
 
-                </div>
-                <form onSubmit={handleSubmit} className='flex flex-col gap-2 mt-5'>
+                        <h3 className='text-4xl  flex-1 font-bold font-gray-800 text-center font-primary'>Signup</h3>
+                        <RxCrossCircled size={30} onClick={handleClose} className='cursor-pointer' />
 
-                    <label htmlFor="name" className='font-primary font-semibold'>Name</label>
-
-                    <div className='flex items-center bg-gray-200 px-3 py-3 rounded-sm gap-3'>
-                    <CiUser />
-
-                        <input
-                         type="text"
-                        className=' font-primary bg-gray-200 outline-none  rounded-sm w-full' id='name' 
-                        placeholder='John Doe' 
-                        value={signUpCredentials.name}
-                        onChange={handleValueChange}
-                        name='name'
-                        />
                     </div>
+                    <form onSubmit={handleSubmit} className='flex flex-col gap-2 mt-5'>
 
-                    <label htmlFor="email" className='  font-primary font-semibold'>Email</label>
-                    <div className='flex items-center bg-gray-200 px-3 py-3 rounded-sm gap-3'>
-                    <MdOutlineMail className=' ' />
-                    
-                    <input 
-                    type="email"
-                    placeholder='example@gmail.com' 
-                    className='font-primary bg-gray-200 outline-none  rounded-sm w-full' id='email'
-                    value={signUpCredentials.email}
-                    onChange={handleValueChange}
-                    name='email'
-                     />
-                    
-                    </div>
-                    <label htmlFor="password" className='font-primary font-semibold'>Password</label>
-                    <div className='flex items-center bg-gray-200 px-3 py-3 rounded-sm gap-3'>
-                    <TbLockPassword className='' />
-                    
-                    <input
-                    type="password" 
-                    placeholder='********'
-                    className='font-primary   bg-gray-200 outline-none  rounded-sm w-full' id='password'
-                    value={signUpCredentials.password}
-                    onChange={handleValueChange}
-                    name='password'
-                     />
-                    </div>
-                    <button className='bg-teal-300 w-full py-2 rounded-md px-1 cursor-pointer hover:bg-teal-400 mt-5 font-primary font-semibold'>signup</button>
-                    <span className='text-center'>or</span>
-                    <p className='text-center'>Don't have an account?<span className='text-blue-500 underline cursor-pointer' >login</span></p>
+                        <label htmlFor="name" className='font-primary font-semibold'>Name</label>
+
+                        <div className='flex items-center bg-gray-200 px-3 py-3 rounded-sm gap-3'>
+                            <CiUser />
+
+                            <input
+                                type="text"
+                                className=' font-primary bg-gray-200 outline-none  rounded-sm w-full' id='name'
+                                placeholder='John Doe'
+                                value={signUpCredentials.name}
+                                onChange={handleValueChange}
+                                name='name'
+                            />
+                        </div>
+
+                        <label htmlFor="email" className='  font-primary font-semibold'>Email</label>
+                        <div className='flex items-center bg-gray-200 px-3 py-3 rounded-sm gap-3'>
+                            <MdOutlineMail className=' ' />
+
+                            <input
+                                type="email"
+                                placeholder='example@gmail.com'
+                                className='font-primary bg-gray-200 outline-none  rounded-sm w-full' id='email'
+                                value={signUpCredentials.email}
+                                onChange={handleValueChange}
+                                name='email'
+                            />
+
+                        </div>
+                        <label htmlFor="password" className='font-primary font-semibold'>Password</label>
+                        <div className='flex items-center bg-gray-200 px-3 py-3 rounded-sm gap-3'>
+                            <TbLockPassword className='' />
+
+                            <input
+                                type="password"
+                                placeholder='********'
+                                className='font-primary   bg-gray-200 outline-none  rounded-sm w-full' id='password'
+                                value={signUpCredentials.password}
+                                onChange={handleValueChange}
+                                name='password'
+                            />
+                            </div>
+                            <button
+                                disabled={isLoading}
+                                className="bg-teal-300 w-full py-3 rounded-md px-1 cursor-pointer hover:bg-teal-400 mt-5 font-primary font-semibold relative flex justify-center"
+                            >
+                                <span className=" flex itemsc-center w-fit gap-2">
+                                    sign up
+                                    {isLoading ? (
+                                        <ProgressSpinner
+                                            style={{ width: '20px', height: '20px' }}
+                                            strokeWidth="8"
+                                            animationDuration=".5s"
+                                        />
+                                    ):null} 
+                                </span>
+                            </button>
+
+                        <span className='text-center'>or</span>
+                        <p className='text-center'>Don't have an account?<span className='text-blue-500 underline cursor-pointer' >login</span></p>
                     </form>
-                    </Box>
-                    </Modal>
+                </Box>
+            </Modal>
+        </>
     )
 }
 

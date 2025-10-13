@@ -3,7 +3,7 @@ import {authRouter} from './routes/auth.route.js'
 import mongoose from 'mongoose'
 import cors from 'cors'
 import dotenv from 'dotenv'
-
+import cookieParser from 'cookie-parser'
 dotenv.config()
 const app = express()
 const port = 3000
@@ -19,6 +19,7 @@ app.use(cors({
   credentials: true
 }))
 
+app.use(cookieParser())
 
 app.get('/', (req, res) => {
   res.send('Hello World!')

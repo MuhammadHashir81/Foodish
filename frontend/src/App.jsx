@@ -6,7 +6,7 @@ import Cart from './Components/Cart';
 import Home from './Components/Home';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const userJWT = localStorage.getItem('userJWT')
 
   return (
     <div>

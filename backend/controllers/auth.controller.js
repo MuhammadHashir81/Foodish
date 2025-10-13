@@ -36,24 +36,32 @@ export const signup = async (req, res) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
       const error = errors.array().map(error => `${error.msg}`)
-      console.log(error)
-      res.status(400).json({ error })
 
-      return
+      // setTimeout(() => {
+      return res.status(400).json({ error: error })
+      // },2000);
+
     }
-      const existingEmail = await User.findOne({email})
-      if(existingEmail){
-        return res.status(400).json({error:'email already exists'})
-      }
+    const existingEmail = await User.findOne({ email })
+    if (existingEmail) {
+      // setTimeout(() => {
+      return res.status(400).json({ error: 'email already exists' })
+      // }, 2000);
+    }
 
-      
+
     const salt = await bcrypt.genSalt()
     const hashedPassword = await bcrypt.hash(password, salt)
     const storeUser = await User.create({ name, email, password: hashedPassword })
-    res.status(200).json({ success: 'signed up successfully' })
+
+    // setTimeout(() => {
+    return res.status(200).json({ success: 'signed up successfully'})
+    // }, 2000);
 
   } catch (error) {
-    res.status(500).json({ error: 'Internal server error ' })
+    setTimeout(() => {
+      res.status(500).json({ error: 'Internal server error' })
+    }, 2000);
     console.log(error)
 
   }
@@ -73,17 +81,17 @@ export const login = async (req, res) => {
       if (findPassword) {
         const token = createToken(findEmail.id)
         res.cookie('userJWT', token, { httpOnly: true, maxAge: maxAge * 1000 })
-         res.status(200).json({success:'logged in successfully'})
-         return
+        res.status(200).json({ success: 'logged in successfully', token,userName:findEmail.name })
+        return
 
       }
-      else{
-       res.status(400).json({error:'incorrect password'}) 
+      else {
+        res.status(400).json({ error: 'incorrect password' })
       }
     }
 
-    else{
-      res.status(400).json({error:'incorrect email'})
+    else {
+      res.status(400).json({ error: 'incorrect email' })
     }
 
   } catch (error) {
