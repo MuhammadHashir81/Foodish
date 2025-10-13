@@ -3,8 +3,7 @@ import { useSelector } from 'react-redux'
 import { FaStar } from "react-icons/fa";
 
 const Cart = () => {
-    const cartItems = useSelector((state) => state.cartItems)
-    const singleItemQuantity = useSelector((state)=>state.singleItemQuantity.productQuantity)
+    const cartItems = useSelector((state) => state.cartItems.addToCartItems)
     console.log(cartItems)
     return (
         <div className="max-w-sm  rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden mt-10  bg-white mx-10">
@@ -32,7 +31,7 @@ const Cart = () => {
 
                             <div className="flex justify-between items-center mt-4">
                                 <p className="text-lg font-bold text-teal-600">${item.price}</p>
-                                <h5>Quantity : {singleItemQuantity}</h5>
+                                <h5>Quantity : {item.quantity}</h5>
                             </div>
                         </div>
 

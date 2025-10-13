@@ -4,7 +4,13 @@ import allfoods from '../../public/data.json'
 const AllFood = () => {
   const [category, setCategory] = useState('All');
 
-  const categories = ['All', 'Burgers', 'Fries', 'Drinks', 'Snacks', 'Desserts', 'Sauces', 'Salad','pasta','chinese'];
+  const categories = ['All', 'Burgers', 'Fries', 'Drinks', 'Snacks', 'Desserts', 'Sauces', 'Salad', 'Pasta', 'Chinese'];
+
+
+  const filteredFoods = category === 'All' ? allfoods : allfoods.filter((food) => food.category === category);
+
+
+
   return (
     <div className='px-10 py-20 '>
       <div className='flex items-center justify-between'>
@@ -13,7 +19,7 @@ const AllFood = () => {
           <li className='font-primary font-semibold cursor-pointer'>About</li>
           <li className='font-primary font-semibold cursor-pointer'>Contact</li>
         </ul>
-        <input type='text' placeholder='search your favourite' className='border-2 border-gray-300 rounded-full px-5 py-2 w-1/3 outline-none'/>
+        <input type='text' placeholder='search your favourite' className='border-2 border-gray-300 rounded-full px-5 py-2 w-1/3 outline-none' />
         <h3 className='text-2xl font-bold'>Get upto 25% off on your first order</h3>
       </div>
 
@@ -27,12 +33,12 @@ const AllFood = () => {
       </div>
       <div className='grid grid-cols-4 gap-10 mt-10'>
 
-      {
-        allfoods.map((food) => (
-          <FoodItem allfoods={food}/>
-        ))
-        
-      }
+        {
+          filteredFoods.map((food) => (
+            <FoodItem allfoods={food} />
+          ))
+
+        }
       </div>
     </div>
   )

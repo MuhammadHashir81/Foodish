@@ -31,7 +31,6 @@ const usersSlice = createSlice({
     isLoading: false,
     success: null,
     error: null,
-    userName:null
   },
   extraReducers: (builder) => {
     builder
@@ -63,14 +62,17 @@ export const loginUser = createAsyncThunk(
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ email, password }),
-      credentials:'include'
+      credentials: 'include'
     })
 
     const data = await response.json()
     if (response.ok) {
-      console.log(data.userName);
-      localStorage.setItem('userJWT',data.token)
-      return data.success
+      localStorage.setItem('userJWT', data.token)
+      return {
+        success: data.success,
+        userName: data.userName
+      }
+
     }
 
     if (!response.ok) {
@@ -86,6 +88,7 @@ const loginSlice = createSlice({
     isLoading: false,
     success: null,
     error: null,
+    userName: null
   },
   extraReducers: (builder) => {
     builder
@@ -95,7 +98,9 @@ const loginSlice = createSlice({
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.isLoading = false
-        state.success = action.payload
+        state.success = action.payload.success
+        state.userName = action.payload.userName
+        localStorage.setItem('userName', state.userName)
         toast.success(state.success)
         setTimeout(() => {
           window.location.reload()
@@ -112,5 +117,58 @@ const loginSlice = createSlice({
 })
 
 
+export const logout = createAsyncThunk(
+  'users/logoutUser',
+  async (_, { rejectWithValue }) => {
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/logout`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      credentials: 'include'
+    })
+    if (response.ok) {
+      const data = await response.json()
+      console.log(data);
+      
+    }
+
+
+
+    if (!response.ok) {
+      return rejectWithValue(data.error)
+    }
+  }
+)
+
+const logoutSlice = createSlice({
+  name: 'usersLogout',
+  initialState: {
+    error: null,
+
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(logout.fulfilled, (state, action) => {
+
+
+        localStorage.removeItem('userJWT')
+        localStorage.removeItem('userName')
+        setTimeout(() => {
+          window.location.reload()
+        }, 1000);
+      })
+      .addCase(logout.rejected, (state, action) => {
+        state.isLoading = false
+        state.error = action.payload
+        toast.error(state.error)
+
+      })
+  },
+})
+
+
+
 export const userReducer = usersSlice.reducer
 export const loginReducer = loginSlice.reducer
+export const logoutReducer = logoutSlice.reducer

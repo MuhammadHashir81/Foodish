@@ -23,13 +23,28 @@ const cartSlice = createSlice({
 
 const cartItemsSlice = createSlice({
   name: 'cartItems',
-  initialState: [],
+  initialState: {
+    addToCartItems: [],
+  },
   reducers: {
     addItem: (state, action) => {
-      state.push(action.payload);
+      state.addToCartItems.push(action.payload);
     },
     removeItem: (state, action) => {
-      state.filter((item) => item.id !== action.payload);
+      state.addToCartItems.filter((item) => item.id !== action.payload);
+    },
+
+    incrementQuantity: (state, action) => {
+      const item = state.addToCartItems.find((item) => item.id === action.payload);
+      if (item) {
+        item.quantity +=1;
+      }
+    },
+    decrementQuantity: (state, action) => {
+      const item = state.addToCartItems.find((item) => item.id === action.payload);
+      if (item && item.quantity > 0) {
+        item.quantity -=1;
+      }
     },
     clearCart: () => {
       return [];
@@ -38,29 +53,26 @@ const cartItemsSlice = createSlice({
 });
 
 
+
+
+
 // single quantity slice 
 
-const singleItemQuantitySlice = createSlice({
-  name: 'quantity',
-  initialState: {
-    productQuantity: 0
-  },
-  reducers: {
-    singleItemIncrement: (state, action) => {
-      state.productQuantity += 1
-    },
-
-    singleItemDecrement: (state, action) => {
-      state.productQuantity -= 1
-    },
-  }
-
-})
-
 export const { increment, decrement, reset } = cartSlice.actions;
-export const { addItem, removeItem, clearCart } = cartItemsSlice.actions;
-export const { singleItemIncrement, singleItemDecrement } = singleItemQuantitySlice.actions
+export const { addItem, removeItem, clearCart, incrementQuantity, decrementQuantity } = cartItemsSlice.actions;
 
 export const cartReducer = cartSlice.reducer;
 export const cartItemsReducer = cartItemsSlice.reducer;
-export const singleItemQuantityReducer = singleItemQuantitySlice.reducer
+
+
+
+
+
+
+
+
+
+
+
+
+

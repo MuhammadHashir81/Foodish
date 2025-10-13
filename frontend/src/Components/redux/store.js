@@ -1,13 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { cartItemsReducer, singleItemQuantityReducer,cartReducer } from '../slices/cartSlice';
-import { loginReducer, userReducer } from '../slices/authSlice';
+import { cartItemsReducer, cartReducer } from '../slices/cartSlice';
+import { loginReducer, logout, logoutReducer, userReducer } from '../slices/authSlice';
 const store = configureStore({
   reducer: {
     cart: cartReducer,
     cartItems:cartItemsReducer, // you can add more reducers later
-    singleItemQuantity:singleItemQuantityReducer,
     user:userReducer,
-    login:loginReducer
+    login:loginReducer,
+    logout:logoutReducer
 
     
   },
