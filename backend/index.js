@@ -4,6 +4,7 @@ import mongoose from 'mongoose'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import cookieParser from 'cookie-parser'
+import { addToCartRouter } from './routes/addtocart.route.js'
 dotenv.config()
 const app = express()
 const port = 3000
@@ -28,6 +29,7 @@ app.get('/', (req, res) => {
 app.use(express.json())
 
 app.use('/api/auth', authRouter)
+app.use('/api/cart', addToCartRouter)
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

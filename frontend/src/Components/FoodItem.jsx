@@ -1,47 +1,34 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaStar } from "react-icons/fa";
 import { FaMinus } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa6";
 import { useDispatch } from "react-redux";
 import { increment } from "./slices/cartSlice";
-import { addItem } from "./slices/cartSlice";
 import { useSelector } from "react-redux";
-import { incrementQuantity } from "./slices/cartSlice";
-import { decrementQuantity } from "./slices/cartSlice";
+import { addToCartFunc } from "./slices/cartSlice";
+import { getCartItemsFunc } from "./slices/cartSlice";
 const FoodItem = ({ allfoods }) => {
   const [isAddToCart, setIsAddToCart] = useState(true)
   const [singleItemQuantity, setSingleItemQuantity] = useState(0)
   const dispatch = useDispatch()
 
-  const cartItems = useSelector((state) => state.cartItems.addToCartItems);
+
+
+useEffect(() => {
+  dispatch(getCartItemsFunc())
   
-  // Find this specific item in the cart
-  const cartItem = cartItems.find((item) => item.id === allfoods.id);
-  console.log(cartItem)
-
-
-  const quantity = cartItem ? cartItem.quantity : 0;  
-  // handle add to cart function 
+}, [])
 
 
   const handleAddToCart = (allFoods) => {
     dispatch(increment())
     setIsAddToCart(false)
-    dispatch(addItem(allFoods))
+    dispatch(addToCartFunc(allFoods))
+    dispatch(getCartItemsFunc())
 
-    console.log(allFoods)
   }
 
   // handle increment function
-  const handleIncrement = (id) => {
-    dispatch(incrementQuantity(id))
-  }
-
-  // handle decrement function
-  const handleDecrement = (id) => {
-
-    dispatch(decrementQuantity(id))
-  }
 
   return (
     <div className="max-w-sm bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden mt-10">
@@ -69,20 +56,18 @@ const FoodItem = ({ allfoods }) => {
 
 
                 <button onClick={() => handleAddToCart(allfoods)} className="bg-teal-500 text-white px-4 py-2 rounded-full hover:bg-teal-600 transition-all duration-200">
-                  Add to Cart
+                  add to cart
                 </button>
               ) : (
                 <div className="bg-teal-300 flex items-center gap-5 rounded-full px-3 py-1">
 
                   <FaMinus
-                    onClick={() => value > 1 && handleDecrement(allfoods.id)}
                     className={`cursor-pointer `}
                   />
 
-                  <span className="">{quantity}</span>
+                  <span className="">1</span>
 
                   <FaPlus
-                    onClick={() => handleIncrement(allfoods.id)}
                     className="cursor-pointer text-gray-700"
                   />
 

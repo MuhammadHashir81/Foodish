@@ -35,7 +35,7 @@ const AllFood = () => {
 
         {
           filteredFoods.map((food) => (
-            <FoodItem allfoods={food} />
+            <FoodItem allfoods={food} key={food.id}/>
           ))
 
         }

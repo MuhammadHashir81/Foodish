@@ -17,14 +17,17 @@ import { FaRegCircleQuestion } from "react-icons/fa6";
 
 
 
-
 const Navbar = () => {
   const userName = localStorage.getItem('userName')
   const dispatch = useDispatch()
 
   const [open, setOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
-  const cartValue = useSelector((state) => state.cart.value)
+  const {cartValue} = useSelector(state => state.getCartItems)
+
+
+    
+
   const [isDropDown, setIsDropDown] = useState(false)
 
 
@@ -91,13 +94,13 @@ const Navbar = () => {
           </div>
         </div>
 
-        <NavLink to='/cart'>
+          <NavLink to='/cart'>
 
-          <div className='bg-teal-100 flex px-4 py-1 gap-1 rounded-full cursor-pointer'>
-            <span>{cartValue}</span>
-            <FaCartArrowDown size={20} />
-          </div>
-        </NavLink>
+            <div  className='bg-teal-100 flex px-4 py-1 gap-1 rounded-full cursor-pointer'>
+              <span>{cartValue}</span>
+              <FaCartArrowDown size={20} />
+            </div>
+          </NavLink>
 
       </div>
 

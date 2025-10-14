@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { toast } from 'react-hot-toast'
+
 export const signUpUser = createAsyncThunk(
   'users/signUpUser',
   async ({ name, email, password }, { rejectWithValue }) => {
@@ -8,7 +9,7 @@ export const signUpUser = createAsyncThunk(
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ name, email, password })
+      body: JSON.stringify({ name, email, password }),
     })
 
     const data = await response.json()

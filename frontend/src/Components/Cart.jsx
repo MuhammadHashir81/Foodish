@@ -1,17 +1,26 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { FaStar } from "react-icons/fa";
-
+import { getCartItemsFunc } from './slices/cartSlice';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 const Cart = () => {
-    const cartItems = useSelector((state) => state.cartItems.addToCartItems)
-    console.log(cartItems)
+    const dispatch = useDispatch()
+    const {cartItems} = useSelector((state) => state.getCartItems)
+
+    useEffect(() => {
+       dispatch(getCartItemsFunc())
+    }, [])
+    
     return (
+
         <div className="max-w-sm  rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden mt-10  bg-white mx-10">
 
 
             {/* Image */}
 
             {
+                
                 cartItems.map((item) => (
                     <>
                         <div className="relative w-full h-56">
