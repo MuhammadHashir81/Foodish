@@ -7,17 +7,26 @@ import { increment } from "./slices/cartSlice";
 import { useSelector } from "react-redux";
 import { addToCartFunc } from "./slices/cartSlice";
 import { getCartItemsFunc } from "./slices/cartSlice";
+import { updateCartItemQuantityFunc } from "./slices/cartSlice";
+import { set } from "mongoose";
 const FoodItem = ({ allfoods }) => {
   const [isAddToCart, setIsAddToCart] = useState(true)
-  const [singleItemQuantity, setSingleItemQuantity] = useState(0)
+  const [itemQuantity, setSingleItemQuantity] = useState(1);
+  const { cartItems } = useSelector(state => state.getCartItems);
+  console.log(cartItems)
+  // Find if this item is in cart
+  const cartItem = cartItems.find(item => item.description === allfoods.description);
+  const isInCart = !!cartItem;
+  const currentQuantity = cartItem ? cartItem.quantity : 1;
+
   const dispatch = useDispatch()
 
 
 
-useEffect(() => {
-  dispatch(getCartItemsFunc())
-  
-}, [])
+  useEffect(() => {
+    dispatch(getCartItemsFunc())
+
+  }, [])
 
 
   const handleAddToCart = (allFoods) => {
@@ -30,6 +39,25 @@ useEffect(() => {
 
   // handle increment function
 
+  const handleIncrement = () => {
+    const newQuantity = currentQuantity + 1;
+    dispatch(updateCartItemQuantityFunc({
+      cartItemId: cartItem._id,
+      quantity: newQuantity
+    }));
+    dispatch(getCartItemsFunc());
+  }
+
+  const handleDecrement = () => {
+    if (itemQuantity > 1) {
+      const newQuantity = currentQuantity - 1;
+      dispatch(updateCartItemQuantityFunc({
+        cartItemId: cartItem._id,
+        quantity: newQuantity
+      }));
+      dispatch(getCartItemsFunc());
+    }
+  }
   return (
     <div className="max-w-sm bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden mt-10">
       {/* Image */}
@@ -62,12 +90,15 @@ useEffect(() => {
                 <div className="bg-teal-300 flex items-center gap-5 rounded-full px-3 py-1">
 
                   <FaMinus
+                    onClick={() => handleDecrement(allfoods._id, itemQuantity)}
                     className={`cursor-pointer `}
                   />
 
-                  <span className="">1</span>
+                  <span className="">{itemQuantity}</span>
 
                   <FaPlus
+                    onClick={() => handleIncrement(allfoods._id, itemQuantity)}
+
                     className="cursor-pointer text-gray-700"
                   />
 
@@ -83,7 +114,6 @@ useEffect(() => {
 };
 
 export default FoodItem;
-
 
 
 

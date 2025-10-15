@@ -1,7 +1,6 @@
 import jwt from "jsonwebtoken";
 
 export const verifyToken = (req, res, next) => {
-    console.log(req.cookies)
     const token = req.cookies.userJWT; // Assuming token is sent in the Authorization header
     if (!token) {
         return res.status(401).json({ message: "Access denied please login first" });

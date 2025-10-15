@@ -8,9 +8,8 @@ const store = configureStore({
     user:userReducer,
     login:loginReducer,
     logout:logoutReducer,
-    getCartItems:getCartItemsReducer
-
-    
+    getCartItems:getCartItemsReducer,
+    // updateCartItemsQuantity:updateCartItemsQuantityReducer
   },
 });
 
