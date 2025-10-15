@@ -23,7 +23,6 @@ const Navbar = () => {
 
   const [open, setOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
-  const {cartValue} = useSelector(state => state.getCartItems)
 
 
     
@@ -97,7 +96,7 @@ const Navbar = () => {
           <NavLink to='/cart'>
 
             <div  className='bg-teal-100 flex px-4 py-1 gap-1 rounded-full cursor-pointer'>
-              <span>{cartValue}</span>
+              <span>1</span>
               <FaCartArrowDown size={20} />
             </div>
           </NavLink>

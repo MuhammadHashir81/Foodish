@@ -39,7 +39,6 @@ export const getCartItems = async (req, res) => {
     try {
         const userId = req.userId;
         const cartItems = await AddToCart.find({ userId })
-        console.log('hashir')
         res.status(200).json({ cartItems })
     } catch (error) {
         res.status(500).json({ error: 'Server error', error: error });
