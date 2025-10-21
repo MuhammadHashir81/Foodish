@@ -41,11 +41,37 @@ export const getCartItemsFunc = createAsyncThunk(
     })
     const data = await response.json()
     if (response.ok) {
+      console.log(data)
       return data.cartItems
     }
     if (!response.ok) {
-      return rejectWithValue(data.error
-      )
+      return rejectWithValue(data.error)
+    }
+  }
+)
+
+// quantity-update
+// quantity update 
+
+
+export const quantityUpdate = createAsyncThunk(
+  'cart/quantityUpdate',
+  async ({cartItemId,quantity}, { rejectWithValue }) => {
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/cart/quantity-update`, {
+      method: 'PUT',  
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      credentials: 'include',
+      body: JSON.stringify({cartItemId,quantity})
+    })
+    const data = await response.json()
+    if (response.ok) {
+      console.log(data)
+      return data.itemQuantity
+    }
+    if (!response.ok) {
+      return rejectWithValue(data.error)
     }
   }
 )
@@ -59,7 +85,6 @@ const cartSlice = createSlice({
     success: null,  
     error: null,
     cartItems: [], 
-    cartValue:0
   },  
   extraReducers: (builder) => {
     builder
@@ -69,34 +94,35 @@ const cartSlice = createSlice({
       })
       .addCase(addToCartFunc.fulfilled, (state, action) => {
         state.isLoading = false
-        state.success = action.payload.success
-        // state.cartItems.push(action.payload.cartItem)  // add new item to cartItems array
       }
-      )
-      .addCase(addToCartFunc.rejected, (state, action) => {
-        state.isLoading = false
-        state.error = action.payload
-      })
-      .addCase(getCartItemsFunc.pending, (state) => {
-        state.isLoading = true
-        state.error = null
+    )
+    .addCase(addToCartFunc.rejected, (state, action) => {
+      state.isLoading = false
+      state.error = action.payload
+
+    })
+    .addCase(getCartItemsFunc.pending, (state) => {
+      state.isLoading = true
+      state.error = null
+    }
+  )
+  .addCase(getCartItemsFunc.fulfilled, (state, action) => {
+    state.isLoading = false
+    state.cartItems = action.payload
       }
-      )
-      .addCase(getCartItemsFunc.fulfilled, (state, action) => {
-        state.isLoading = false
-        state.cartItems = action.payload  // set cartItems array to fetched items
-      }
-      )
+    )
       .addCase(getCartItemsFunc.rejected, (state, action) => {
         state.isLoading = false
         state.error = action.payload
       }
       ) 
+     
   },
 })
 
-export default cartSlice.reducer;
-export { addToCartFunc, getCartItemsFunc };
+
+
+export const cartReducer =  cartSlice.reducer;
 
 
 

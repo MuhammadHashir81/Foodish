@@ -50,10 +50,6 @@ export const getCartItems = async (req, res) => {
 
 
 
-
-
-
-
 // update item quantity
 
 
@@ -70,9 +66,9 @@ export const updateCartItemQuantity = async (req, res) => {
         if (!findUser) {
             return res.status(401).json({ error: 'please log in first' });
         }
-        const cartItem = await AddToCart.findByIdAndUpdate(cartItemId, { quantity }, { new: true })
-        res.status(200).json({ success: 'cart item updated', cartItem })
-        console.log(cartItem)
+        const itemQuantity = await AddToCart.findByIdAndUpdate(cartItemId, { quantity }, { new: true })
+        res.status(200).json({ success: 'cart item updated', itemQuantity })
+        console.log(itemQuantity)
         console.log('hashir')
 
         console.log('hashir')

@@ -3,9 +3,19 @@ import { useSelector } from 'react-redux'
 import { FaStar } from "react-icons/fa";
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
+import {getCartItemsFunc} from "./slices/cartSlice"
 const Cart = () => {
     const dispatch = useDispatch()
 
+    useEffect(() => {
+        dispatch(getCartItemsFunc())
+    
+    }, [])
+    
+    const {cartItems} = useSelector((state) => state.cart)
+    console.log(cartItems)
+
+  
     return (
 
         <div className="max-w-sm  rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden mt-10  bg-white mx-10">

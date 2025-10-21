@@ -5,20 +5,42 @@ import { FaPlus } from "react-icons/fa6";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { addToCartFunc } from "./slices/cartSlice";
+import { getCartItemsFunc,quantityUpdate } from "./slices/cartSlice";
 const FoodItem = ({ allfoods }) => {
   const [isAddToCart, setIsAddToCart] = useState(true)
+  const [singleItemQuantity, setSingleItemQuantity] = useState(1) 
   const dispatch = useDispatch()
 
 
 
 
 
-  const handleAddToCart = (allFoods) => {
+  const handleAddToCart = async (allFoods) => {
     setIsAddToCart(false)
-    dispatch(addToCartFunc(allFoods))
+  
+    await dispatch(addToCartFunc(allFoods))
+    dispatch(getCartItemsFunc())
+    
+  }
+
+
+
+   // handle increment quantity
+  const handleIncrementQuantity = (id) => {
+    console.log("this is id", id)
+    setSingleItemQuantity(singleItemQuantity + 1)
+    dispatch(quantityUpdate({cartItemId:id,quantity:singleItemQuantity}))
 
   }
 
+   // handle increment quantity
+  const handleDecrementQuantity = (id) => {
+    setSingleItemQuantity(singleItemQuantity + 1)
+    dispatch(quantityUpdate({cartItemId:id,quantity:singleItemQuantity}))
+
+  }
+  
+  
   return (
     <div className="max-w-sm bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden mt-10">
       {/* Image */}
@@ -51,12 +73,14 @@ const FoodItem = ({ allfoods }) => {
                 <div className="bg-teal-300 flex items-center gap-5 rounded-full px-3 py-1">
 
                   <FaMinus
+                  onClick={()=>handleDecrementQuantity(allfoods.id)}
                     className={`cursor-pointer `}
                   />
 
                   <span className="">1</span>
 
                   <FaPlus
+                  onClick={()=>handleIncrementQuantity(allfoods.id)}
 
                     className="cursor-pointer text-gray-700"
                   />

@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { RxCrossCircled } from "react-icons/rx";
 import Login from './Login';
 import Signup from './Signup';
@@ -13,6 +13,7 @@ import { FaAngleDown } from "react-icons/fa6";
 import { FaRegUser } from "react-icons/fa";
 import { IoIosLogOut } from "react-icons/io";
 import { FaRegCircleQuestion } from "react-icons/fa6";
+import { getCartItemsFunc } from './slices/cartSlice';
 
 
 
@@ -20,6 +21,16 @@ import { FaRegCircleQuestion } from "react-icons/fa6";
 const Navbar = () => {
   const userName = localStorage.getItem('userName')
   const dispatch = useDispatch()
+  const {cartItems} = useSelector((state) => state.cart)
+  console.log(cartItems.length)
+
+
+  useEffect(() => {
+    dispatch(getCartItemsFunc())
+  }, [])
+  
+
+
 
   const [open, setOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
@@ -96,7 +107,7 @@ const Navbar = () => {
           <NavLink to='/cart'>
 
             <div  className='bg-teal-100 flex px-4 py-1 gap-1 rounded-full cursor-pointer'>
-              <span>1</span>
+              <span>{cartItems.length}</span>
               <FaCartArrowDown size={20} />
             </div>
           </NavLink>
