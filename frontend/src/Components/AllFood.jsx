@@ -1,10 +1,28 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import FoodItem from './FoodItem';
-import allfoods from '../../public/data.json'
+import { useDispatch, useSelector, } from 'react-redux';
+import { getAdminFoods } from './slices/adminSlice';
+import { FaLeaf } from 'react-icons/fa';
+import { FaSearch } from 'react-icons/fa';
+import { FaShoppingCart } from 'react-icons/fa';
+import { MdLocalOffer } from 'react-icons/md';
 const AllFood = () => {
+
+  const dispatch = useDispatch()
+
+  
+  useEffect(()=>{
+   dispatch(getAdminFoods())
+  },[])
+
+
+  const {allfoods} = useSelector(state => state.admin)
+  console.log(allfoods)
+
+
   const [category, setCategory] = useState('All');
 
-  const categories = ['All', 'Burgers', 'Fries', 'Drinks', 'Snacks', 'Desserts', 'Sauces', 'Salad', 'Pasta', 'Chinese'];
+  const categories = ['All','Pizzas','Burgers', 'Fries', 'Drinks', 'Snacks', 'Desserts', 'Sauces', 'Salad', 'Pastas', 'Chinese'];
 
 
   const filteredFoods = category === 'All' ? allfoods : allfoods.filter((food) => food.category === category);
@@ -23,7 +41,7 @@ const AllFood = () => {
         <h3 className='text-2xl font-bold'>Get upto 25% off on your first order</h3>
       </div>
 
-      <div className='flex items-center justify-between mt-10 gap-5 '>
+      <div className='flex items-center justify-between mt-10 gap-5 flex-wrap '>
         {
           categories.map((cat) => (
             <button key={cat} onClick={() => setCategory(cat)} className={`px-5 py-3 rounded-full font-primary font-semibold ${category === cat ? 'bg-teal-500 text-white' : 'bg-gray-200 text-black'}`}>{cat}</button>
@@ -31,7 +49,9 @@ const AllFood = () => {
         }
 
       </div>
-      <div className='grid grid-cols-4 gap-10 mt-10'>
+      <div className="grid grid-cols-3 gap-6 items-start">
+
+
 
         {
           filteredFoods.map((food) => (
@@ -45,3 +65,5 @@ const AllFood = () => {
 }
 
 export default AllFood
+
+

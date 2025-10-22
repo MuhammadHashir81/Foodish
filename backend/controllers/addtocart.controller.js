@@ -4,7 +4,8 @@ import { User } from "../Models/Auth.Schema.js";
 export const addToCart = async (req, res) => {
 
     try {
-        const { description, image, price, rating, quantity } = req.body;
+        const { description, image, price, rating, quantity, foodItemId } = req.body;
+        console.log("foodItemId", foodItemId, "rating", rating)
         const userId = req.userId;
 
         // Validate user existence
@@ -15,6 +16,7 @@ export const addToCart = async (req, res) => {
         // Create new cart item
         const newCartItem = await AddToCart.create({
             userId,
+            foodItemId,
             description,
             image,
             price,
@@ -30,8 +32,6 @@ export const addToCart = async (req, res) => {
         console.log(error.message)
     }
 }
-
-
 
 
 // get cart items for a user
@@ -56,8 +56,8 @@ export const getCartItems = async (req, res) => {
 export const updateCartItemQuantity = async (req, res) => {
     try {
         const { cartItemId, quantity } = req.body;
-        console.log(cartItemId, quantity);
-        
+        console.log("this is quantity", cartItemId, quantity);
+
         const userId = req.userId;
 
         // Validate user existence
@@ -66,17 +66,20 @@ export const updateCartItemQuantity = async (req, res) => {
         if (!findUser) {
             return res.status(401).json({ error: 'please log in first' });
         }
-        const itemQuantity = await AddToCart.findByIdAndUpdate(cartItemId, { quantity }, { new: true })
+        const itemQuantity = await AddToCart.findOneAndUpdate(
+            { foodItemId: cartItemId, userId },  // Search by foodItemId AND userId for security
+            { quantity },
+            { new: true }
+        )
         res.status(200).json({ success: 'cart item updated', itemQuantity })
-        console.log(itemQuantity)
-        console.log('hashir')
+        console.log("this is result", itemQuantity)
 
         console.log('hashir')
 
 
     } catch (error) {
         res.status(500).json({ error: 'Server error', error: error.message });
-        console.log("internal server error",error.message)
+        console.log("internal server error", error.message)
 
     }
 }

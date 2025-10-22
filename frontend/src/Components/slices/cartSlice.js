@@ -5,13 +5,13 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 export const addToCartFunc = createAsyncThunk(
   'cart/addtocart',
-  async ({ description, image, price, rating, quantity }, { rejectWithValue }) => {
+  async ({ description, image, price, rating, quantity,foodItemId }, { rejectWithValue }) => {
     const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/cart/add`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ description, image, price, rating, quantity }),
+      body: JSON.stringify({ description, image, price, rating, quantity,foodItemId }),
       credentials: 'include'
     })
 

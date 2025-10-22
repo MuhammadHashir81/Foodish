@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { loginReducer, logout, logoutReducer, userReducer } from '../slices/authSlice';
+import { loginReducer,  logoutReducer, userReducer, } from '../slices/authSlice';
+import { adminRuducer } from '../slices/adminSlice';
 import {cartReducer} from '../slices/cartSlice'
 const store = configureStore({
 
@@ -8,7 +9,7 @@ const store = configureStore({
     login:loginReducer,
     logout:logoutReducer,
     cart:cartReducer,
-    // updateCartItemsQuantity:updateCartItemsQuantityReducer
+    admin:adminRuducer
   },
 });
 
