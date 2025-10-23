@@ -8,6 +8,7 @@ import { BiPackage } from "react-icons/bi";
 import { IoBagCheckOutline } from "react-icons/io5";
 import { MdOutlineShoppingBag } from "react-icons/md";
 import { handleStripePayment } from './slices/paymentSlice';
+import { MdDelete } from "react-icons/md";
 
 const Cart = () => {
     const dispatch = useDispatch()
@@ -34,7 +35,6 @@ const Cart = () => {
     // payment function 
 
     const handlePaymentClick = () => {
-        console.log('hashir')
     dispatch(handleStripePayment({items:cartItems}))
     }
 
@@ -69,6 +69,7 @@ const Cart = () => {
 
                                 </div>
 
+
                                 {/* Content */}
                                 <div className="p-5">
                                     <p className="text-gray-600  mt-2 font-primary  font-semibold text-lg">{item.description}</p>
@@ -82,6 +83,9 @@ const Cart = () => {
                                         <h5 className='font-semibold font-primary text-lg text-gray-800'>Quantity : {item.quantity}</h5>
                                     </div>
                                 </div>
+                                    <div className=' h-fit p-2 mt-3 mr-5 rounded-md hover:bg-blue-50 duration-150 cursor-pointer' >
+                                        <MdDelete/>
+                                    </div>
                             </div>
 
 

@@ -11,6 +11,8 @@ import { stripeRouter } from './StripeGateway/stripe.route.js'
 dotenv.config()
 
 const app = express()
+
+
 const port = 3000
 
 try {
@@ -30,7 +32,13 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-app.use(express.json())
+app.use((req, res, next) => {
+  if (req.originalUrl === '/api/payment/webhook') {
+    next(); // skip express.json for webhook
+  } else {
+    express.json()(req, res, next);
+  }
+});
 
 app.use('/api/auth', authRouter)
 app.use('/api/cart', addToCartRouter)
@@ -39,7 +47,6 @@ app.use('/api/cart', addToCartRouter)
 app.use('/api/payment',stripeRouter)
 
 // admin route 
-
 app.use('/api', adminRouter);
 
 app.listen(port, () => {
