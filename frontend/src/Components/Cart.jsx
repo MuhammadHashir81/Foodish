@@ -6,10 +6,13 @@ import { useEffect } from 'react';
 import { getCartItemsFunc } from "./slices/cartSlice"
 import { BiPackage } from "react-icons/bi";
 import { IoBagCheckOutline } from "react-icons/io5";
-
+import { MdOutlineShoppingBag } from "react-icons/md";
+import { handleStripePayment } from './slices/paymentSlice';
 
 const Cart = () => {
     const dispatch = useDispatch()
+
+
 
     useEffect(() => {
         dispatch(getCartItemsFunc())
@@ -22,10 +25,18 @@ const Cart = () => {
 
     const subtotal = cartItems.reduce((sum,item)=> {
         return sum + (item.price * item.quantity )
+
+
     },0)
 
-    console.log(subtotal)
-    console.log(cartItems)
+
+
+    // payment function 
+
+    const handlePaymentClick = () => {
+        console.log('hashir')
+    dispatch(handleStripePayment({items:cartItems}))
+    }
 
 
     return (
@@ -105,8 +116,8 @@ const Cart = () => {
 
                     <div className='flex flex-col gap-3 mt-7'>
 
-                    <button className=' flex items-center justify-center gap-2 font-semibold text-gray-800 cursor-pointer rounded-md text-md  bg-teal-300 w-full py-2 '> <IoBagCheckOutline />  checkout</button>
-                    <button className='font-semibold text-md text-gray-800 cursor-pointer rounded-md  w-full outline-1 outline-gray-400 py-2'>continue to shopping </button>
+                    <button onClick={handlePaymentClick} className=' flex items-center justify-center gap-2 font-semibold text-gray-800 cursor-pointer rounded-md text-md  bg-teal-300 w-full py-2 '> <IoBagCheckOutline />  checkout</button>
+                    <button className='flex items-center justify-center gap-2 font-semibold text-md text-gray-800 cursor-pointer rounded-md  w-full outline-1 outline-gray-400 py-2'><MdOutlineShoppingBag /> continue shopping </button>
                     </div>
 
                     

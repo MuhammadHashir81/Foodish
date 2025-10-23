@@ -6,6 +6,7 @@ import dotenv from 'dotenv'
 import cookieParser from 'cookie-parser'
 import { addToCartRouter } from './routes/addtocart.route.js'
 import { adminRouter } from './routes/admin.route.js'
+import { stripeRouter } from './StripeGateway/stripe.route.js'
 
 dotenv.config()
 
@@ -33,6 +34,9 @@ app.use(express.json())
 
 app.use('/api/auth', authRouter)
 app.use('/api/cart', addToCartRouter)
+
+// payment route
+app.use('/api/payment',stripeRouter)
 
 // admin route 
 

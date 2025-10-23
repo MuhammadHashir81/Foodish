@@ -97,7 +97,7 @@ const Navbar = () => {
           </div>
 
           <div
-            className={` ${isDropDown ? 'block' : 'hidden'} absolute top-8 right-0 bg-white shadow-md flex flex-col gap-2 p-3 rounded-md font-primary text-gray-800   w-40  transition-all duration-300 ease-in-out`}>
+            className={` ${isDropDown ? 'block' : 'hidden'} absolute top-8 right-0 bg-white shadow-md flex flex-col gap-2 p-3 rounded-md font-primary text-gray-800   w-40  transition-all duration-300 ease-in-out z-10`}>
             <NavLink to='/profile'> <span className='flex items-center gap-2'> <FaRegUser /> <p> profile </p></span></NavLink>
             <NavLink to='/help-center'> <span className='flex items-center gap-2 '> <FaRegCircleQuestion />  <p> help center </p></span></NavLink>
             <NavLink onClick={handleLogout}> <span className='flex items-center gap-2'> <IoIosLogOut /> <p> logout</p></span></NavLink>
