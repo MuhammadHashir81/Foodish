@@ -7,9 +7,12 @@ import { MdOutlineMail, MdPassword } from "react-icons/md";
 import { TbLockPassword } from "react-icons/tb";
 import { Toaster } from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginUser } from './slices/authSlice';
+import { loginUser, loginWithGoogle } from './slices/authSlice';
 import { useNavigate } from 'react-router-dom'
 import { ProgressSpinner } from 'primereact/progressspinner';
+import { GoogleLogin } from '@react-oauth/google';
+
+
 
 
 const Login = ({ loginOpen, setLoginOpen }) => {
@@ -34,6 +37,17 @@ const Login = ({ loginOpen, setLoginOpen }) => {
         p: 4,
         borderRadius: 2,
     };
+
+
+    // handle google login 
+
+    
+    const handleGoogleLogin = (credentialResponse)=>{
+        console.log(credentialResponse)
+        const token = credentialResponse.credential
+        dispatch(loginWithGoogle({token}))
+        
+    }
 
 
     // handle login 
@@ -114,6 +128,13 @@ const Login = ({ loginOpen, setLoginOpen }) => {
                                 ) : null}
                             </span>
                         </button>
+                        <GoogleLogin
+                            onSuccess={handleGoogleLogin}
+                            onError={() => {
+                                console.log('Login Failed');
+                            }}
+                        />;
+                                
 
                         <span className='text-center'>or</span>
                         <p className='text-center'>Don't have an account?<span className='text-blue-500 underline cursor-pointer'>signup</span></p>

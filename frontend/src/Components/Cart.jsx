@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { FaStar } from "react-icons/fa";
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { getCartItemsFunc } from "./slices/cartSlice"
+import { getCartItemsFunc, deleteCartItem } from "./slices/cartSlice"
 import { BiPackage } from "react-icons/bi";
 import { IoBagCheckOutline } from "react-icons/io5";
 import { MdOutlineShoppingBag } from "react-icons/md";
@@ -12,8 +12,6 @@ import { MdDelete } from "react-icons/md";
 
 const Cart = () => {
     const dispatch = useDispatch()
-
-
 
     useEffect(() => {
         dispatch(getCartItemsFunc())
@@ -37,6 +35,14 @@ const Cart = () => {
     const handlePaymentClick = () => {
     dispatch(handleStripePayment({items:cartItems}))
     }
+
+    // deleting cart item 
+
+
+    const handleCartItemDelete = (id)=>{
+        dispatch(deleteCartItem(id))
+    }
+
 
 
     return (
@@ -66,7 +72,6 @@ const Cart = () => {
                                     <span className="absolute top-2 right-2 bg-teal-500 text-white text-sm px-3 py-1 rounded-full shadow-md flex items-center gap-1">
                                         <FaStar /> <span className='font-primary '>  {item.rating}</span>
                                     </span>
-
                                 </div>
 
 
@@ -84,7 +89,7 @@ const Cart = () => {
                                     </div>
                                 </div>
                                     <div className=' h-fit p-2 mt-3 mr-5 rounded-md hover:bg-blue-50 duration-150 cursor-pointer' >
-                                        <MdDelete/>
+                                        <MdDelete onClick={()=>handleCartItemDelete(item._id)}/>
                                     </div>
                             </div>
 
@@ -121,10 +126,8 @@ const Cart = () => {
                     <div className='flex flex-col gap-3 mt-7'>
 
                     <button onClick={handlePaymentClick} className=' flex items-center justify-center gap-2 font-semibold text-gray-800 cursor-pointer rounded-md text-md  bg-teal-300 w-full py-2 '> <IoBagCheckOutline />  checkout</button>
-                    <button className='flex items-center justify-center gap-2 font-semibold text-md text-gray-800 cursor-pointer rounded-md  w-full outline-1 outline-gray-400 py-2'><MdOutlineShoppingBag /> continue shopping </button>
+                    <button  className='flex items-center justify-center gap-2 font-semibold text-md text-gray-800 cursor-pointer rounded-md  w-full outline-1 outline-gray-400 py-2'><MdOutlineShoppingBag /> continue shopping </button>
                     </div>
-
-                    
 
                     </div>
 

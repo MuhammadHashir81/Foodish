@@ -50,7 +50,6 @@ export const getCartItemsFunc = createAsyncThunk(
   }
 )
 
-// quantity-update
 // quantity update 
 
 
@@ -77,6 +76,55 @@ export const quantityUpdate = createAsyncThunk(
 )
 
 
+// deleting item from cart 
+
+
+export const deleteCartItem = createAsyncThunk(
+  'cart/delte-cart-item',
+  async ({id}, { rejectWithValue }) => {
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/cart/delete-item`, {
+      method: 'DELETE',  
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      credentials: 'include',
+      body: JSON.stringify({id})
+    })
+    const data = await response.json()
+    if (response.ok) {
+      console.log(data)
+      return data.id
+    }
+    if (!response.ok) {
+      return rejectWithValue(data.error)
+    }
+  }
+)
+
+
+
+// clear cart all the cart items
+
+// Clear all cart items
+export const clearCartFunc = createAsyncThunk(
+  'cart/clearCart',
+  async (_, { rejectWithValue }) => {
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/cart/clear-cart`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      credentials: 'include'
+    })
+    const data = await response.json()
+    if (response.ok) {
+      return data
+    }
+    if (!response.ok) {
+      return rejectWithValue(data.error)
+    }
+  }
+)
 
 const cartSlice = createSlice({
   name: 'cart',
@@ -116,6 +164,15 @@ const cartSlice = createSlice({
         state.error = action.payload
       }
       ) 
+        .addCase(deleteCartItem.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.cartItems = state.cartItems.filter(item => item._id !== action.payload)
+      }
+      ) 
+      .addCase(clearCartFunc.fulfilled, (state, action) => {
+        state.cartItems = []
+      }
+      )
      
   },
 })

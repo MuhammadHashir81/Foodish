@@ -1,6 +1,8 @@
 import { AddToCart } from "../Models/AddToCart.Schema.js";
 import { User } from "../Models/Auth.Schema.js";
 
+
+// adding items to cart
 export const addToCart = async (req, res) => {
 
     try {
@@ -81,5 +83,45 @@ export const updateCartItemQuantity = async (req, res) => {
         res.status(500).json({ error: 'Server error', error: error.message });
         console.log("internal server error", error.message)
 
+    }
+}
+
+
+
+// deleting items from carts
+
+
+
+export const deleteCartItems = async (req,res) => {
+     const { id } = req.body
+
+    try {
+     const deleteItem = await AddToCart.findOneAndDelete(id)
+
+     res.status(200).json({success:'cart item deleted successfuly', id:deleteItem._id})   
+
+    } catch (error) {
+        res.status(400).json({error:'internal server error'})
+    }
+
+
+}
+
+
+
+// clear cart 
+
+// Clear all cart items for a user
+export const clearCart = async (req, res) => {
+    try {
+        const userId = req.userId;
+        
+        // Delete all cart items for this user
+        await AddToCart.deleteMany({ userId });
+        
+        res.status(200).json({ success: 'Cart cleared successfully' });
+    } catch (error) {
+        res.status(500).json({ error: 'Server error', message: error.message });
+        console.log(error.message);
     }
 }

@@ -1,9 +1,21 @@
 import { CheckCircle2 } from "lucide-react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-
+import { useDispatch } from "react-redux";
+import { clearCartFunc } from "./slices/cartSlice";
+import { useEffect } from "react";
 const PaymentSuccess = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch()
+
+
+  // clear cart items
+
+  useEffect(()=>{
+      dispatch(clearCartFunc())
+
+  },[])
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-white px-4">

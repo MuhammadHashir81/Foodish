@@ -8,23 +8,28 @@ import { CiUser } from "react-icons/ci";
 import { TbLockPassword } from "react-icons/tb";
 import { MdOutlineMail } from "react-icons/md";
 import { useDispatch } from "react-redux";
-import { signUpUser } from './slices/authSlice';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Toaster } from 'react-hot-toast';
 import { ProgressSpinner } from 'primereact/progressspinner';
 
 
+
 const Signup = ({ open, setOpen }) => {
 
     const dispatch = useDispatch()
-    const {  isLoading } = useSelector((state) => state.user)
+    const { isLoading } = useSelector((state) => state.user)
 
     const [signUpCredentials, setSignUpCredentials] = useState({
         name: '',
         email: '',
         password: ''
     })
+
+
+    // sign up with google 
+
+
 
     const handleClose = () => setOpen(false);
     const style = {
@@ -125,22 +130,22 @@ const Signup = ({ open, setOpen }) => {
                                 onChange={handleValueChange}
                                 name='password'
                             />
-                            </div>
-                            <button
-                                disabled={isLoading}
-                                className="bg-teal-300 w-full py-3 rounded-md px-1 cursor-pointer hover:bg-teal-400 mt-5 font-primary font-semibold relative flex justify-center"
-                            >
-                                <span className=" flex itemsc-center w-fit gap-2">
-                                    sign up
-                                    {isLoading ? (
-                                        <ProgressSpinner
-                                            style={{ width: '20px', height: '20px' }}
-                                            strokeWidth="8"
-                                            animationDuration=".5s"
-                                        />
-                                    ):null} 
-                                </span>
-                            </button>
+                        </div>
+                        <button
+                            disabled={isLoading}
+                            className="bg-teal-300 w-full py-3 rounded-md px-1 cursor-pointer hover:bg-teal-400 mt-5 font-primary font-semibold relative flex justify-center"
+                        >
+                            <span className=" flex itemsc-center w-fit gap-2">
+                                sign up
+                                {isLoading ? (
+                                    <ProgressSpinner
+                                        style={{ width: '20px', height: '20px' }}
+                                        strokeWidth="8"
+                                        animationDuration=".5s"
+                                    />
+                                ) : null}
+                            </span>
+                        </button>
 
                         <span className='text-center'>or</span>
                         <p className='text-center'>Don't have an account?<span className='text-blue-500 underline cursor-pointer' >login</span></p>
@@ -152,3 +157,5 @@ const Signup = ({ open, setOpen }) => {
 }
 
 export default Signup
+
+// credentialResponse

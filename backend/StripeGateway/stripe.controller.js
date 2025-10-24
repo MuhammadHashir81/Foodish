@@ -1,6 +1,7 @@
 import Stripe from 'stripe';
 import dotenv from "dotenv"
 import { User } from '../Models/Auth.Schema.js';
+import { PostPayment } from '../Models/PostPayment.Schema.js';
 
 dotenv.config()
 
@@ -98,7 +99,16 @@ export const stripePostPayment = async (req, res) => {
         const customerName = session.customer_details.name
         const totalAmount = session.amount_total
 
-        res.status(200).json({ success: 'post payment success ' })
+        const postPaymentDetails = await PostPayment.create({
+          userId:id,
+          items,
+          customerEmail,
+          customerName,
+          totalAmount  
+        })
+
+        res.status(200).json({ success: 'post payment success', postPaymentDetails })
+        console.log(postPaymentDetails)
 
     }
 

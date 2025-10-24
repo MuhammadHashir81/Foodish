@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { toast } from 'react-hot-toast'
+import { data } from 'react-router-dom'
 
 export const signUpUser = createAsyncThunk(
   'users/signUpUser',
@@ -83,6 +84,41 @@ export const loginUser = createAsyncThunk(
   }
 )
 
+// signup with google 
+
+export const loginWithGoogle = createAsyncThunk(
+  'users/google-signUp',
+  async ({ token }, { rejectWithValue }) => {
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/google-login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      credentials: 'include',
+      body: JSON.stringify({ token })
+    })
+
+    const data = await response.json()
+
+
+    if (response.ok) {
+      console.log(data)
+      localStorage.setItem('userJWT', data.userToken)
+      return {
+        success:data.success,
+        userName:data.user.name
+      }
+
+    }
+
+
+
+    if (!response.ok) {
+      return rejectWithValue(data.error)
+    }
+  }
+)
+
 const loginSlice = createSlice({
   name: 'users',
   initialState: {
@@ -114,6 +150,16 @@ const loginSlice = createSlice({
         toast.error(state.error)
 
       })
+      .addCase(loginWithGoogle.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.userName = action.payload.userName
+        toast.success(action.payload.success)
+        localStorage.setItem('userName', state.userName)
+        setTimeout(() => {
+          window.location.reload()
+        }, 2000);
+
+      })
   },
 })
 
@@ -131,7 +177,7 @@ export const logout = createAsyncThunk(
     if (response.ok) {
       const data = await response.json()
       console.log(data);
-      
+
     }
 
 
@@ -167,6 +213,10 @@ const logoutSlice = createSlice({
       })
   },
 })
+
+
+
+
 
 
 

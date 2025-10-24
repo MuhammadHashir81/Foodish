@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs";
 import pkg from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
+import {OAuth2Client} from 'google-auth-library'
 
 dotenv.config()
 
@@ -117,3 +118,58 @@ export const logout = (req, res) => {
     
   }
 }
+
+
+
+
+// login with google 
+
+
+
+  export const googleLogin = async (req,res)  => {
+    const oAuth2Client = new OAuth2Client();
+
+    const {token} = req.body
+
+    const result = await oAuth2Client.verifyIdToken({
+      idToken: token,
+      audience:process.env.GOOGLE_CLIENT_ID,
+    });
+
+
+    const {name,email,picture} = result.payload
+    console.log(name,email,picture)
+
+     let user = await User.findOne({email})
+
+
+     if (!user) {
+      
+        user = await User.create({
+         name,
+         email,
+         password:null,
+         picture
+        })
+        
+      }
+
+    const userToken = createToken(user._id)
+    res.cookie('userJWT', userToken, { httpOnly: true, maxAge: maxAge * 1000 })
+
+
+    res.status(201).json({success:'sign in successfully', userToken, user})
+
+
+    if (result.payload['sub']) {
+      console.log(`User id: ${result.payload['sub']}`);
+    }
+
+    // Optionally, if "includeEmail" was set in the token options, check if the
+    // email was verified
+    if (result.payload['email_verified']) {
+      console.log(`Email verified: ${result.payload['email_verified']}`);
+    }
+
+    console.log('ID token verified.');
+  }

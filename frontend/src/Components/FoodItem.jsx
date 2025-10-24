@@ -20,7 +20,7 @@ const FoodItem = ({ allfoods }) => {
     console.log("this is id of food", allfoods._id)
 
     await dispatch(addToCartFunc({ description: allfoods.description, image: allfoods.image, price: allfoods.price, rating: allfoods.rating, quantity: singleItemQuantity, foodItemId: allfoods._id }))
-    dispatch(getCartItemsFunc())
+    dispatch(getCartItemsFunc())  
 
   }
 
@@ -29,16 +29,16 @@ const FoodItem = ({ allfoods }) => {
   // handle increment quantity
   const handleIncrementQuantity = (id) => {
     console.log(id)
-    setSingleItemQuantity(singleItemQuantity + 1)
-    dispatch(quantityUpdate({ cartItemId: id, quantity: singleItemQuantity }))
-
+    const newQuantity = singleItemQuantity + 1 
+    setSingleItemQuantity(newQuantity)
+    dispatch(quantityUpdate({ cartItemId: id, quantity: newQuantity }))
   }
 
   // handle increment quantity
   const handleDecrementQuantity = (id) => {
-    setSingleItemQuantity(singleItemQuantity - 1)
-    dispatch(quantityUpdate({ cartItemId: id, quantity: singleItemQuantity }))
-
+    const newQuantity = singleItemQuantity - 1 
+    setSingleItemQuantity(newQuantity)
+    dispatch(quantityUpdate({ cartItemId: id, quantity: newQuantity }))
   }
 
 

@@ -14,6 +14,7 @@ import { FaRegUser } from "react-icons/fa";
 import { IoIosLogOut } from "react-icons/io";
 import { FaRegCircleQuestion } from "react-icons/fa6";
 import { getCartItemsFunc } from './slices/cartSlice';
+import { MdShoppingCartCheckout } from "react-icons/md";
 
 
 
@@ -21,14 +22,14 @@ import { getCartItemsFunc } from './slices/cartSlice';
 const Navbar = () => {
   const userName = localStorage.getItem('userName')
   const dispatch = useDispatch()
-  const {cartItems} = useSelector((state) => state.cart)
+  const { cartItems } = useSelector((state) => state.cart)
   console.log(cartItems.length)
 
 
   useEffect(() => {
     dispatch(getCartItemsFunc())
   }, [])
-  
+
 
 
 
@@ -36,7 +37,7 @@ const Navbar = () => {
   const [loginOpen, setLoginOpen] = useState(false);
 
 
-    
+
 
   const [isDropDown, setIsDropDown] = useState(false)
 
@@ -100,17 +101,19 @@ const Navbar = () => {
             className={` ${isDropDown ? 'block' : 'hidden'} absolute top-8 right-0 bg-white shadow-md flex flex-col gap-2 p-3 rounded-md font-primary text-gray-800   w-40  transition-all duration-300 ease-in-out z-10`}>
             <NavLink to='/profile'> <span className='flex items-center gap-2'> <FaRegUser /> <p> profile </p></span></NavLink>
             <NavLink to='/help-center'> <span className='flex items-center gap-2 '> <FaRegCircleQuestion />  <p> help center </p></span></NavLink>
-            <NavLink onClick={handleLogout}> <span className='flex items-center gap-2'> <IoIosLogOut /> <p> logout</p></span></NavLink>
+            <NavLink to='/orders'> <span className='flex items-center gap-2'> <MdShoppingCartCheckout />
+              <p> orders</p></span></NavLink>
+            <NavLink onClick={handleLogout}> <span className='flex items-center gap-2'> <IoIosLogOut /> <p>logout</p></span></NavLink>
           </div>
         </div>
 
-          <NavLink to='/cart'>
+        <NavLink to='/cart'>
 
-            <div  className='bg-teal-100 flex px-4 py-1 gap-1 rounded-full cursor-pointer'>
-              <span>{cartItems.length}</span>
-              <FaCartArrowDown size={20} />
-            </div>
-          </NavLink>
+          <div className='bg-teal-100 flex px-4 py-1 gap-1 rounded-full cursor-pointer'>
+            <span>{cartItems.length}</span>
+            <FaCartArrowDown size={20} />
+          </div>
+        </NavLink>
 
       </div>
 
