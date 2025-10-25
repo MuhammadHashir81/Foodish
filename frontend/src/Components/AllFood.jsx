@@ -22,7 +22,7 @@ const AllFood = () => {
 
   const [category, setCategory] = useState('All');
 
-  const categories = ['All','Pizzas','Burgers', 'Fries', 'Drinks', 'Snacks', 'Desserts', 'Sauces', 'Salad', 'Pastas', 'Chinese'];
+  const categories = ['All','Pizzas','Burgers', 'Fries', 'Drinks', 'Snacks', 'Desserts', 'Sauces', 'Salad', 'Pastas'];
 
 
   const filteredFoods = category === 'All' ? allfoods : allfoods.filter((food) => food.category === category);

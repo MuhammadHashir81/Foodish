@@ -7,6 +7,7 @@ import cookieParser from 'cookie-parser'
 import { addToCartRouter } from './routes/addtocart.route.js'
 import { adminRouter } from './routes/admin.route.js'
 import { stripeRouter } from './StripeGateway/stripe.route.js'
+import { orderRouter } from './routes/getUserSpecificOrder.route.js'
 
 dotenv.config()
 
@@ -45,6 +46,12 @@ app.use('/api/cart', addToCartRouter)
 
 // payment route
 app.use('/api/payment',stripeRouter)
+
+
+// get user specific orders 
+
+
+app.use('/api/orders',orderRouter)
 
 // admin route 
 app.use('/api', adminRouter);
