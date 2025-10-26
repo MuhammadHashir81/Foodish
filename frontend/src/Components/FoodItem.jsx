@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { addToCartFunc } from "./slices/cartSlice";
 import { getCartItemsFunc, quantityUpdate } from "./slices/cartSlice";
+import { Toaster } from "react-hot-toast";
 import AllFood from "./AllFood";
 const FoodItem = ({ allfoods }) => {
   const [isAddToCart, setIsAddToCart] = useState(true)
@@ -43,6 +44,8 @@ const FoodItem = ({ allfoods }) => {
 
 
   return (
+     <div>
+      
     <div className="max-w-sm bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden mt-10">
       {/* Image */}
       <div className="relative w-full max-h-fit">
@@ -96,6 +99,8 @@ const FoodItem = ({ allfoods }) => {
         </div>
       </div>
     </div>
+     </div>
+
   );
 };
 

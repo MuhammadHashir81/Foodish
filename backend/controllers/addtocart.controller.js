@@ -7,7 +7,6 @@ export const addToCart = async (req, res) => {
 
     try {
         const { description, image, price, rating, quantity, foodItemId } = req.body;
-        console.log("foodItemId", foodItemId, "rating", rating)
         const userId = req.userId;
 
         // Validate user existence
@@ -15,6 +14,16 @@ export const addToCart = async (req, res) => {
         if (!findUser) {
             return res.status(401).json({ error: 'please log in first' });
         }
+
+        const findExistingCatItem = await AddToCart.findOne({userId,foodItemId})
+        console.log(findExistingCatItem)
+
+        if(findExistingCatItem){
+             return res.status(400).json({error : 'product already in the cart'})
+        }
+
+        
+        
         // Create new cart item
         const newCartItem = await AddToCart.create({
             userId,

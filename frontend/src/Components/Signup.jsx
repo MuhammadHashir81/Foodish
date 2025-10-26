@@ -12,6 +12,7 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Toaster } from 'react-hot-toast';
 import { ProgressSpinner } from 'primereact/progressspinner';
+import { signUpUser } from './slices/authSlice';
 
 
 

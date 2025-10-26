@@ -1,8 +1,7 @@
 // cartSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-
+import { toast } from 'react-hot-toast'
 // cartSlice
-
 export const addToCartFunc = createAsyncThunk(
   'cart/addtocart',
   async ({ description, image, price, rating, quantity,foodItemId }, { rejectWithValue }) => {
@@ -51,8 +50,6 @@ export const getCartItemsFunc = createAsyncThunk(
 )
 
 // quantity update 
-
-
 export const quantityUpdate = createAsyncThunk(
   'cart/quantityUpdate',
   async ({cartItemId,quantity}, { rejectWithValue }) => {
@@ -77,8 +74,6 @@ export const quantityUpdate = createAsyncThunk(
 
 
 // deleting item from cart 
-
-
 export const deleteCartItem = createAsyncThunk(
   'cart/delte-cart-item',
   async ({id}, { rejectWithValue }) => {
@@ -103,7 +98,7 @@ export const deleteCartItem = createAsyncThunk(
 
 
 
-// clear cart all the cart items
+
 
 // Clear all cart items
 export const clearCartFunc = createAsyncThunk(
@@ -126,6 +121,9 @@ export const clearCartFunc = createAsyncThunk(
   }
 )
 
+
+
+
 const cartSlice = createSlice({
   name: 'cart',
   initialState: { 
@@ -147,6 +145,7 @@ const cartSlice = createSlice({
     .addCase(addToCartFunc.rejected, (state, action) => {
       state.isLoading = false
       state.error = action.payload
+      toast.error(state.error)
 
     })
     .addCase(getCartItemsFunc.pending, (state) => {

@@ -15,6 +15,7 @@ export const signUpUser = createAsyncThunk(
 
     const data = await response.json()
     if (response.ok) {
+      console.log(data.success)
       return data.success
     }
 
@@ -40,10 +41,14 @@ const usersSlice = createSlice({
         state.isLoading = true
         state.error = null
       })
-      .addCase(signUpUser.fulfilled, (state, action) => {
+       .addCase(signUpUser.fulfilled, (state,action) => {
         state.isLoading = false
-        state.success = action.payload.success
+        state.success = action.payload
         toast.success(state.success)
+        setTimeout(() => {
+          window.location.reload()
+        }, 2000);
+
       })
       .addCase(signUpUser.rejected, (state, action) => {
         state.isLoading = false
@@ -129,6 +134,7 @@ const loginSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+     
       .addCase(loginUser.pending, (state) => {
         state.isLoading = true
         state.error = null

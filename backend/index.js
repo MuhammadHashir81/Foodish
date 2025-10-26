@@ -17,7 +17,7 @@ const app = express()
 const port = 3000
 
 try {
-  await mongoose.connect('mongodb://127.0.0.1:27017/Foodish');
+  await mongoose.connect(process.env.MONGO_URI);
 } catch (error) {
   handleError(error);
 }
