@@ -9,8 +9,13 @@ import { IoBagCheckOutline } from "react-icons/io5";
 import { MdOutlineShoppingBag } from "react-icons/md";
 import { handleStripePayment } from './slices/paymentSlice';
 import { MdDelete } from "react-icons/md";
+import { IoFastFood } from "react-icons/io5";
+import { FaShoppingBag } from "react-icons/fa";
+import { useNavigate } from 'react-router-dom';
+
 
 const Cart = () => {
+    const navigate = useNavigate()
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -48,6 +53,12 @@ const Cart = () => {
     return (
 
         <div className='px-10 flex '>
+            
+
+            {
+               cartItems && cartItems.length > 0 ? (
+                <>
+                
 
             <div className="  w-[70%] h-fit my-10 ">
 
@@ -104,7 +115,7 @@ const Cart = () => {
 
 
             </div>
-                {/* order summary */}
+            // order summary
             <div className='my-10 sticky top-4 shadow-sm bg-white px-10 h-fit py-5 rounded-md'>
                 <div className='flex items-center gap-3'>
                     <BiPackage/>    
@@ -135,6 +146,21 @@ const Cart = () => {
 
                 </div>
             </div>
+            </>
+
+             ):
+             
+             (
+                <div className='flex  flex-col items-center w-full h-[80vh] mt-10'>
+
+                <IoFastFood  size={250} className='mb-3 '/>
+
+
+                <button onClick={()=>navigate('/')} className='w-full bg-teal-500 px-4 py-2 rounded-lg text-lg mt-10 font-primary cursor-pointer hover:bg-teal-600' >start shopping</button>
+
+                </div>
+             )
+            }
         </div>
     )
 }

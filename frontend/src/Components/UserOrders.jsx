@@ -166,7 +166,7 @@ const UserOrders = () => {
                     <td className="px-6 py-4 text-sm text-gray-900">{order.customerName}</td>
                     <td className="px-6 py-4 text-sm text-gray-900">{order.items?.length || 0}</td>
                     <td className="px-6 py-4 text-sm font-bold text-gray-900">
-                      ${Number(order.totalAmount || 0).toFixed(2)}
+                      ${Number(order.totalAmount / 100  || 0).toFixed(2)}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold border ${getStatusBadge(order.status)}`}>

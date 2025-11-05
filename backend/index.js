@@ -49,8 +49,6 @@ app.use('/api/payment',stripeRouter)
 
 
 // get user specific orders 
-
-
 app.use('/api/orders',orderRouter)
 
 // admin route 

@@ -1,7 +1,5 @@
-import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
 import { useEffect, useState } from 'react';
-import { RxCrossCircled } from "react-icons/rx";
+import Button from '@mui/material/Button';
 import Login from './Login';
 import Signup from './Signup';
 import { FaCartArrowDown } from "react-icons/fa";
@@ -15,7 +13,8 @@ import { IoIosLogOut } from "react-icons/io";
 import { FaRegCircleQuestion } from "react-icons/fa6";
 import { getCartItemsFunc } from './slices/cartSlice';
 import { MdShoppingCartCheckout } from "react-icons/md";
-
+import { Text, Em, Strong, Flex, DropdownMenu } from "@radix-ui/themes";
+import { HelpCircle } from 'lucide-react';
 
 
 
@@ -70,14 +69,20 @@ const Navbar = () => {
   }
 
   return (
-    <nav className='px-10  flex justify-between items-center shadow-md h-24'>
+    <nav className='px-10  flex justify-between items-center  h-24 my-8'>
       <NavLink to='/'>
-        <h1 className='text-4xl font-semibold text-gray-800  mt-5 cursor-pointer'> Foodish</h1>
+        <Text size="9">
+          <Strong>Foodish</Strong>
+        </Text>
       </NavLink>
-      <div className='flex gap-5'>
-        <div className='bg-red-500 gap-3 self-end'>
 
-        </div>
+
+
+
+
+
+      <div className='flex gap-5'>
+
         <div className={`flex gap-5 items-center ${userName ? 'hidden' : 'block'}`} >
           <button onClick={handleLoginOpen} className='font-primary  rounded-md px-8 py-1 border-1 cursor-pointer'>login</button>
           <button onClick={handleOpen} className='bg-teal-300 rounded-md px-8 font-primary py-1 cursor-pointer hover:bg-teal-400  '>signup for free delivery</button>
@@ -91,20 +96,69 @@ const Navbar = () => {
       <div className='flex items-center gap-4' >
         <div className={`relative ${userName ? 'block' : 'hidden'}`}>
 
-          <div onClick={handleDropDown} className='flex items-center cursor-pointer gap-2 transition-all duration-300 ease-in-out  ' >
+          {/* <div onClick={handleDropDown} className='flex items-center cursor-pointer gap-2 transition-all duration-300 ease-in-out  ' >
             <FaRegUser />
             <h5 className='font-primary text-xl'>{userName}</h5>
             <FaAngleDown />
-          </div>
+          </div> */}
 
-          <div
+
+
+      <Flex gap="3" align="center" className={`relative ${userName ? 'block' : 'hidden'}`}>
+
+        <DropdownMenu.Root>
+          <DropdownMenu.Trigger>
+            <Button variant="soft">
+              {userName}
+              <DropdownMenu.TriggerIcon className='ml-2' />
+            </Button>
+          </DropdownMenu.Trigger>
+
+          <DropdownMenu.Content variant="soft">
+
+            <DropdownMenu.Item >
+
+              <NavLink to="/profile" className="flex justify-between items-center gap-2">
+                <FaRegUser /> 
+              <span>profile</span>
+              </NavLink>
+            </DropdownMenu.Item>
+
+            <DropdownMenu.Item>
+              <NavLink to="/help-center" className=" flex items-center justify-between gap-2">
+                <FaRegCircleQuestion className="text-gray-600" />
+
+                <span>help center</span>
+              </NavLink>
+            </DropdownMenu.Item>
+
+            <DropdownMenu.Item >
+              <NavLink to='/orders' className='flex items-center justify-between gap-2'>
+
+
+              <MdShoppingCartCheckout/>
+              <span>orders</span>
+              </NavLink>
+
+            </DropdownMenu.Item>
+
+            <DropdownMenu.Separator />
+            <DropdownMenu.Item  color="red">
+              <IoIosLogOut/>
+              <span onClick={handleLogout}> logout </span>
+            </DropdownMenu.Item>
+          </DropdownMenu.Content>
+        </DropdownMenu.Root>
+      </Flex>
+
+          {/* <div
             className={` ${isDropDown ? 'block' : 'hidden'} absolute top-8 right-0 bg-white shadow-md flex flex-col gap-2 p-3 rounded-md font-primary text-gray-800   w-40  transition-all duration-300 ease-in-out z-10`}>
             <NavLink to='/profile'> <span className='flex items-center gap-2'> <FaRegUser /> <p> profile </p></span></NavLink>
             <NavLink to='/help-center'> <span className='flex items-center gap-2 '> <FaRegCircleQuestion />  <p> help center </p></span></NavLink>
             <NavLink to='/orders'> <span className='flex items-center gap-2'> <MdShoppingCartCheckout />
               <p> orders</p></span></NavLink>
             <NavLink onClick={handleLogout}> <span className='flex items-center gap-2'> <IoIosLogOut /> <p>logout</p></span></NavLink>
-          </div>
+          </div> */}
         </div>
 
         <NavLink to='/cart'>

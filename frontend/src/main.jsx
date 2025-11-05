@@ -4,11 +4,15 @@ import './index.css'
 import App from './App.jsx'
 import { Provider } from 'react-redux';
 import store from './Components/redux/store.js';
+import { Theme } from "@radix-ui/themes";
+import "@radix-ui/themes/styles.css";
+
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+  // <StrictMode>
    <Provider store={store}>
-    
+    <Theme>
     <App />
+    </Theme>
    </Provider>
-  </StrictMode>,
+  // </StrictMode>,
 )

@@ -133,7 +133,7 @@ const Login = ({ loginOpen, setLoginOpen }) => {
                             onError={() => {
                                 console.log('Login Failed');
                             }}
-                        />;
+                        />
                                 
 
                         <span className='text-center'>or</span>

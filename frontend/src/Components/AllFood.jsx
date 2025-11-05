@@ -2,8 +2,6 @@ import { useEffect, useState } from 'react'
 import FoodItem from './FoodItem';
 import { useDispatch, useSelector, } from 'react-redux';
 import { getAdminFoods } from './slices/adminSlice';
-import { FaSearch } from 'react-icons/fa';
-import { useMemo } from 'react';
 import { Toaster } from 'react-hot-toast';
 const AllFood = () => {
 
@@ -26,7 +24,6 @@ const AllFood = () => {
 
    let filteredFoods;
    filteredFoods = category === 'All' ? allfoods : allfoods.filter((food) => food.category === category);
-
   // handle search change
 
     
@@ -80,6 +77,7 @@ const AllFood = () => {
 }
 
 export default AllFood
+
 
 
 
