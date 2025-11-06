@@ -105,11 +105,14 @@ const Navbar = () => {
 
 
       <Flex gap="3" align="center" className={`relative ${userName ? 'block' : 'hidden'}`}>
-
         <DropdownMenu.Root>
           <DropdownMenu.Trigger>
             <Button variant="soft">
+              <div className='flex items-center gap-1'>
+
+        <FaRegUser/>
               {userName}
+              </div>
               <DropdownMenu.TriggerIcon className='ml-2' />
             </Button>
           </DropdownMenu.Trigger>
